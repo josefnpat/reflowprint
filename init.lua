@@ -1,4 +1,9 @@
 local reflow = function(progress,printf,text,x,y,w,a)
+	assert(progress)
+	assert(printf)
+	assert(text)
+	assert(x)
+	assert(y)
 	local font = love.graphics.getFont()
 	local width,wrappedtext = font:getWrap(text,w)
 	local target = math.floor( math.min(1,math.max(0,progress or 1)) * #text)
@@ -31,7 +36,7 @@ local reflow = function(progress,printf,text,x,y,w,a)
 end
 
 function reflowprint(i,text,x,y,w,a)
-	if type(progress) == "table" then
+	if type(i) == "table" then
 		reflow(
 			i.progress,
 			i.print or love.graphics.print,
