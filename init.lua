@@ -1,4 +1,4 @@
-function reflowprint(progress,text,x,y,w,a)
+local reflow = function(progress,text,x,y,w,a)
 	local font = love.graphics.getFont()
 	local width,wrappedtext = font:getWrap(text,w)
 	local target = math.floor( math.min(1,math.max(0,progress or 1)) * #text)
@@ -27,6 +27,14 @@ function reflowprint(progress,text,x,y,w,a)
 			y+font:getHeight()*(i-1)
 		)
 		c_start = c_end
+	end
+end
+
+function reflowprint(i,text,x,y,w,a)
+	if type(progress) == "table" then
+		reflow(i.progress,i.text,i.x,i.y,i.w,i.a)
+	else
+		reflow(i,text,x,y,w,a)
 	end
 end
 
