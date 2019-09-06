@@ -1,3 +1,7 @@
+local trim5 = function(s)
+   return s:match'^%s*(.*%S)' or ''
+end
+
 local reflow = function(progress,printf,text,x,y,w,a)
 	assert(progress)
 	assert(printf)
@@ -10,7 +14,7 @@ local reflow = function(progress,printf,text,x,y,w,a)
 	local c_start = 0
 	for i,line in pairs(wrappedtext) do
 		local c_end = c_start + #line
-		local linewidth = font:getWidth(line)
+		local linewidth = font:getWidth(trim5(line))
 		local offset = 0 -- a == nil or a == "left"
 		if a == "center" then
 			offset = (w-linewidth)/2
